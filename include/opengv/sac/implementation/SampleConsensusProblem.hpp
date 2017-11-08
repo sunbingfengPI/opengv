@@ -29,6 +29,7 @@
  ******************************************************************************/
 
 //Note: has been derived from ROS
+#include <iostream>
 
 template<typename M>
 opengv::sac::SampleConsensusProblem<M>::SampleConsensusProblem(
@@ -86,6 +87,7 @@ void
 opengv::sac::SampleConsensusProblem<M>::getSamples(
     int &iterations, std::vector<int> &samples)
 {
+  std::cerr << "  opengv: getSampleSize\n";
   // We're assuming that indices_ have already been set in the constructor
   if (indices_->size() < (size_t)getSampleSize())
   {
@@ -99,12 +101,16 @@ opengv::sac::SampleConsensusProblem<M>::getSamples(
   }
 
   // Get a second point which is different than the first
+  std::cerr << "  opengv: resize\n";
   samples.resize( getSampleSize() );
 
+  std::cerr << "  opengv: enter loop\n";
   for( int iter = 0; iter < max_sample_checks_; ++iter )
   {
+    std::cerr << "  opengv: drawIndexSample\n";
     drawIndexSample(samples);
 
+    std::cerr << "  opengv: isSampleGood\n";
     // If it's a good sample, stop here
     if(isSampleGood(samples))
       return;
@@ -112,6 +118,7 @@ opengv::sac::SampleConsensusProblem<M>::getSamples(
   fprintf( stdout,
       "[sm::SampleConsensusModel::getSamples] WARNING: Could not select %d sample points in %d iterations!\n",
       getSampleSize(), max_sample_checks_ );
+  std::cerr << "  opengv: samples.clear()\n";
   samples.clear();
 
 }
