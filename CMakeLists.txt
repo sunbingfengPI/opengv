@@ -32,7 +32,7 @@ ENDIF()
 IF(MSVC)
   add_compile_options(/wd4514 /wd4267 $<$<CONFIG:DEBUG>:/bigobj>)
 ELSE()
-  add_definitions (-Wall -march=native -O3)
+  add_definitions (-Wall -march=core2 -O3)
 ENDIF()
 
 IF(BUILD_POSITION_INDEPENDENT_CODE)
