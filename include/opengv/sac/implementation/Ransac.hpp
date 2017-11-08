@@ -61,19 +61,22 @@ opengv::sac::Ransac<PROBLEM_T>::computeModel(
   // invalid model parameters!
   const unsigned max_skip = max_iterations_ * 10;
 
+  std::cerr << "opengv: start ransac loop\n";
   // Iterate
   while( iterations_ < k && skipped_count < max_skip )
   {
+    std::cerr << "opengv: getSamples\n";
     // Get X samples which satisfy the model criteria
     sac_model_->getSamples( iterations_, selection );
 
-    if(selection.empty()) 
+    if(selection.empty())
     {
       fprintf(stderr,
           "[sm::RandomSampleConsensus::computeModel] No samples could be selected!\n");
       break;
     }
 
+    std::cerr << "opengv: computeModelCoefficients\n";
     // Search for inliers in the point cloud for the current plane model M
     if(!sac_model_->computeModelCoefficients( selection, model_coefficients ))
     {
@@ -87,6 +90,7 @@ opengv::sac::Ransac<PROBLEM_T>::computeModel(
     //if(inliers.empty() && k > 1.0)
     //  continue;
 
+    std::cerr << "opengv: countWithinDistance\n";
     n_inliers_count = sac_model_->countWithinDistance(
         model_coefficients, threshold_ );
 
@@ -111,6 +115,7 @@ opengv::sac::Ransac<PROBLEM_T>::computeModel(
           // Avoid division by 0.
       k = log(1.0 - probability_) / log(p_no_outliers);
     }
+    std::cerr << "opengv: ransac loop done\n";
 
     ++iterations_;
     if(debug_verbosity_level > 1)
