@@ -63,18 +63,22 @@ void
 opengv::sac::SampleConsensusProblem<M>::drawIndexSample(
     std::vector<int> & sample)
 {
+  std::cerr << "    opengv: drawIndexSample\n";
   size_t sample_size = sample.size();
   size_t index_size = shuffled_indices_.size();
+  std::cerr << "    opengv: enter loop\n";
   for( unsigned int i = 0; i < sample_size; ++i )
   {
     // The 1/(RAND_MAX+1.0) trick is when the random numbers are not uniformly
     // distributed and for small modulo elements, that does not matter
     // (and nowadays, random number generators are good)
     //std::swap (shuffled_indices_[i], shuffled_indices_[i + (rand () % (index_size - i))]);
+    std::cerr << "    opengv: std::swap\n";
     std::swap(
         shuffled_indices_[i],
         shuffled_indices_[i + (rnd() % (index_size - i))] );
   }
+  std::cerr << "    opengv: std::copy\n";
   std::copy(
       shuffled_indices_.begin(),
       shuffled_indices_.begin() + sample_size,
