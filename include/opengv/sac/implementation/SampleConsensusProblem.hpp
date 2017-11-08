@@ -42,8 +42,6 @@ opengv::sac::SampleConsensusProblem<M>::SampleConsensusProblem(
     rng_alg_.seed(static_cast<unsigned> (std::time(0)));
   else
     rng_alg_.seed(12345u);
-
-  rng_gen_.reset(new std::function<int()>(std::bind(*rng_dist_, rng_alg_)));
 }
 
 template<typename M>
@@ -168,7 +166,7 @@ template<typename M>
 int
 opengv::sac::SampleConsensusProblem<M>::rnd()
 {
-  return ((*rng_gen_)());
+  return (*rng_dist_)(rng_alg_);
 }
 
 
