@@ -35,7 +35,6 @@ opengv::sac::MultiSampleConsensusProblem<M>::MultiSampleConsensusProblem(
     bool randomSeed) :
     max_sample_checks_(10)
 {
-  rng_dist_.reset(new std::uniform_int_distribution<>( 0, std::numeric_limits<int>::max () ));
   // Create a random number generator object
   if (randomSeed)
     rng_alg_.seed(static_cast<unsigned> (std::time(0)));
@@ -172,7 +171,7 @@ template<typename M>
 int
 opengv::sac::MultiSampleConsensusProblem<M>::rnd()
 {
-  return (*rng_dist_)(rng_alg_);
+  return rng_dist_(rng_alg_);
 }
 
 

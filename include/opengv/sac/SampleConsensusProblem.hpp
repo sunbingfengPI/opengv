@@ -224,7 +224,7 @@ public:
   std::mt19937 rng_alg_;
 
   /** \brief std-based random number generator distribution. */
-  std::shared_ptr< std::uniform_int_distribution<> > rng_dist_;
+  std::uniform_int_distribution<> rng_dist_;
 
 };
 
