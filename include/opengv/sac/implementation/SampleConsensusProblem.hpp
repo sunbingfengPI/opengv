@@ -70,7 +70,7 @@ opengv::sac::SampleConsensusProblem<M>::drawIndexSample(
     // distributed and for small modulo elements, that does not matter
     // (and nowadays, random number generators are good)
     //std::swap (shuffled_indices_[i], shuffled_indices_[i + (rand () % (index_size - i))]);
-    unsigned int j = i + (rand() % (index_size - i));
+    unsigned int j = i + (rnd() % (index_size - i));
     std::cerr << "    opengv: std::swap  i: " << i << "  j: " << j << "  index_size: " << index_size << "\n";
     std::swap(
         shuffled_indices_[i],
