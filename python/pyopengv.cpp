@@ -530,8 +530,10 @@ bp::object ransac_rotationOnly(
 {
   using namespace opengv::sac_problems::relative_pose;
 
+  std::cerr << "opengv: Creating adapter\n";
   CentralRelativeAdapter adapter(b1, b2);
 
+  std::cerr << "opengv: Creating RotationOnlySacProblem\n";
   std::shared_ptr<RotationOnlySacProblem>
       relposeproblem_ptr(
         new RotationOnlySacProblem(adapter));
@@ -544,7 +546,9 @@ bp::object ransac_rotationOnly(
   ransac.max_iterations_ = max_iterations;
 
   // Solve
+  std::cerr << "opengv: Creating ransac.computeModel()\n";
   ransac.computeModel();
+  std::cerr << "opengv: Return results\n";
   return arrayFromRotation(ransac.model_coefficients_);
 }
 
