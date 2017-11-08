@@ -166,7 +166,10 @@ template<typename M>
 int
 opengv::sac::SampleConsensusProblem<M>::rnd()
 {
-  return (*rng_dist_)(rng_alg_);
+  std::cerr << "opengv: rnd start\n";
+  int result = (*rng_dist_)(rng_alg_);
+  std::cerr << "opengv: rnd done\n";
+  return result;
 }
 
 
